@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Text soldiersRescuedText;
     public Text gameOverText;
     public Text youWinText;
+    public KeyCode resetKey = KeyCode.R;
 
     private int soldiersRescued = 0;
 
@@ -29,10 +31,22 @@ public class GameManager : MonoBehaviour
         soldiersRescued++;
         soldiersRescuedText.text = "Soldiers Rescued: " + soldiersRescued;
 
-        if (soldiersRescued >= 10)
+        if (soldiersRescued >= 5)
         {
             YouWin();
         }
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(resetKey))
+        {
+            ResetScene();
+        }
+    }
+
+    void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GameOver()
